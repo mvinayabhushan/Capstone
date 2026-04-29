@@ -57,3 +57,18 @@ print(f"Missing values: {df.isnull().sum().sum()}")
 # ── Save cleaned dataset ──────────────────────────────────────
 df.to_csv('data/heart_disease_cleaned.csv', index=False)
 print("\nCleaned dataset saved to: data/heart_disease_cleaned.csv")
+
+# ── Step 7: Reproducibility assertions ───────────────────────
+# These checks lock in the synopsis numbers (Section 4.3, Table 3).
+# If any future change to the cleaning logic breaks these, the
+# script fails loudly rather than silently producing a different
+# dataset than the one referenced in the synopsis and report.
+assert df.shape == (918, 12), \
+    f"Expected (918, 12), got {df.shape}"
+assert df.isnull().sum().sum() == 0, \
+    f"Expected 0 missing values, found {df.isnull().sum().sum()}"
+assert df['target_binary'].sum() == 508, \
+    f"Expected 508 disease cases, got {df['target_binary'].sum()}"
+assert (df['target_binary'] == 0).sum() == 410, \
+    f"Expected 410 no-disease cases, got {(df['target_binary'] == 0).sum()}"
+print("\nAll reproducibility assertions passed ✓")
