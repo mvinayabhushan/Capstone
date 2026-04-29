@@ -13,7 +13,7 @@ cols = ['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs',
         'slope', 'ca', 'thal', 'target']
 
 # ── Load all 4 datasets ──────────────────────────────────────
-base = 'data/'   # adjust path if needed
+base = 'data/raw/'   # adjust path if needed
 cleveland    = pd.read_csv(base + 'processed.cleveland.data',  names=cols, na_values='?')
 hungarian    = pd.read_csv(base + 'processed.hungarian.data',  names=cols, na_values='?')
 switzerland  = pd.read_csv(base + 'processed.switzerland.data',names=cols, na_values='?')
