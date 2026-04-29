@@ -1,0 +1,6 @@
+Feature,Chi2_statistic,Degrees_of_Freedom,p_value,Cramers_V,Effect_Size,Significant_at_0.05
+sex,84.145,1,0.0,0.303,medium,True
+cp,268.067,3,0.0,0.54,large,True
+fbs,10.13,1,0.001458,0.105,small,True
+restecg,10.931,2,0.004229,0.109,small,True
+exang,169.857,1,0.0,0.43,medium,True

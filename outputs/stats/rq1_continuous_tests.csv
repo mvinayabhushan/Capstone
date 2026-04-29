@@ -1,0 +1,6 @@
+Feature,Mean_NoDisease,Mean_Disease,t_statistic,p_value,Cohens_d,Effect_Size,Significant_at_0.05
+age,50.551,55.9,-8.823,0.0,-0.591,medium,True
+trestbps,129.966,133.898,-3.371,0.000781,-0.221,small,True
+chol,240.144,249.583,-2.738,0.00631,-0.183,negligible,True
+thalach,148.344,129.091,12.477,0.0,0.827,large,True
+oldpeak,0.423,1.204,-12.545,0.0,-0.792,medium,True

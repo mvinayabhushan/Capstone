@@ -1,0 +1,4 @@
+Feature,Levene_p,Equal_Variance,Test_Used,t_statistic,p_value,Cohens_d,Effect_Size,Significant_at_0.05
+trestbps,0.012575,False,Welch's t,-3.371,0.000781,-0.221,small,True
+chol,0.00512,False,Welch's t,-2.738,0.00631,-0.183,negligible,True
+thalach,0.724204,True,Student's t,12.462,0.0,0.827,large,True
