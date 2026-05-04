@@ -185,7 +185,7 @@ for (name, r), color in zip(results.items(), colors):
     ax.plot(fpr, tpr, color=color, lw=2,
             label=f"{name} (AUC = {r['AUC-ROC']:.3f})")
 ax.plot([0, 1], [0, 1], 'k--', lw=1, label='Chance (AUC = 0.500)')
-ax.set_title('Figure 7. ROC Curves — Six Classifiers on CHD Test Set',
+ax.set_title('Figure 8. ROC Curves — Six Classifiers on CHD Test Set',
              fontweight='bold')
 ax.set_xlabel('False Positive Rate (1 − Specificity)')
 ax.set_ylabel('True Positive Rate (Sensitivity)')

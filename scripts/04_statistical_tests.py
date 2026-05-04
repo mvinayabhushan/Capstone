@@ -274,7 +274,7 @@ if len(roc_data) == 2:
         ax.plot(fpr, tpr, color=colors[label], lw=2,
                 label=f'{label} (AUC = {auc:.3f})')
     ax.plot([0, 1], [0, 1], 'k--', lw=1, label='Chance')
-    ax.set_title('Figure 8. ROC Curves by Gender — Gradient Boosting',
+    ax.set_title('Figure 7. ROC Curves by Gender — Gradient Boosting',
                  fontweight='bold')
     ax.set_xlabel('False Positive Rate (1 − Specificity)')
     ax.set_ylabel('True Positive Rate (Sensitivity)')
