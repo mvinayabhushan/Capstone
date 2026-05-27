@@ -1,73 +1,87 @@
 # Early Detection of Coronary Heart Disease Using Machine Learning
 
-**QM640 Data Analytics Capstone — Walsh College, Fall 2025 (Term 3)**
-Author: Vinaya Bhushan M
-Mentor: Vikas S
+**QM 640: Data Analytics Capstone — Walsh College**  
+**Author:** Vinaya Bhushan M  
+**Term:** Fall 2025, Term 3  
+**Mentor:** Dr. Vikas S
 
-## About the Project
+---
 
-This capstone looks at whether a supervised machine learning model trained on routine clinical data can flag patients at high risk of Coronary Heart Disease (CHD) early, so that primary care physicians and cardiologists can prioritize them for further testing without having to wait for invasive diagnostics.
+## Project Overview
 
-The idea is simple. Most of the data that would help catch CHD early (blood pressure, cholesterol, max heart rate, resting ECG) already sits in routine patient records. This project explores whether that data is enough, on its own, to build a screening tool that is reliable enough to support clinical decisions.
+This project develops and evaluates a non-invasive machine learning screening tool for early detection of Coronary Heart Disease (CHD) using 11 routine clinical features collected during outpatient visits. Six supervised classifiers are compared using stratified cross-validation, hypothesis testing validates feature-level group differences, and a gender-stratified fairness audit with threshold tuning addresses the male-skewed dataset.
 
-## Dataset
+**Best model:** Support Vector Machine (RBF kernel, C = 0.5)  
+- Cross-validation recall: **0.8646**  
+- Test-set recall: **0.8627** | AUC: **0.8846**  
+- Female recall at tuned threshold (0.35): **0.875** (up from 0.500 at default 0.50)
 
-The project uses the **UCI Machine Learning Repository Heart Disease Dataset** (Janosi et al., 1989; Dua & Graff, 2019), combining clinical records from four centres: Cleveland, Hungary, Switzerland, and VA Long Beach. After cleaning, 918 records and 11 features are retained, with a binary target (disease / no disease).
+---
 
-- **Source:** https://archive.ics.uci.edu/dataset/45/heart+disease
-- **DOI:** 10.24432/C52P4X
-- **Licence:** Creative Commons Attribution 4.0 International (CC BY 4.0)
+## Repository Contents
 
-No Kaggle data is used, in line with course policy.
+| File | Description |
+|------|-------------|
+| `heart_disease_cleaned.csv` | Cleaned dataset — 918 deduplicated patient records derived from the UCI Heart Disease Dataset |
+| `01_data_cleaning.py` | Stage 1 — raw data ingestion, duplicate removal, missing value handling |
+| `02_eda_analysis.py` | Stage 2 — exploratory data analysis, distribution plots, correlation analysis |
+| `03_ml_models.py` | Stage 3 — model training, cross-validation, evaluation, and fairness audit |
 
-## Research Questions
+---
 
-1. **RQ1 — Feature significance.** Which clinical features best predict CHD, and how much do they contribute to model performance?
-2. **RQ2 — Model comparison.** Which algorithm among Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, SVM, and KNN performs best for CHD classification?
-3. **RQ3 — Group differences.** Do CHD-positive and CHD-negative patients differ significantly on resting blood pressure, cholesterol, and maximum heart rate?
-4. **RQ4 — Gender moderation.** Does gender affect the relationship between clinical features and CHD, and does the dataset's 79% male skew hurt the model's fairness?
+## Data Source
 
-## Repository Structure
+The original raw data is the **UCI Heart Disease Dataset** (Janosi et al., 1989; Dua & Graff, 2019), freely available at:  
+https://archive.ics.uci.edu/ml/datasets/heart+disease
 
-```
-Capstone/
-├── README.md                      This file
-├── LICENSE                        MIT licence for the code
-├── requirements.txt               Python package versions used
-├── .gitignore                     Files Git should ignore
-├── data/
-│   ├── README.md                  Notes on the data source and licence
-│   └── heart_disease_cleaned.csv  918 cleaned records, 11 features
-├── scripts/
-│   ├── 01_data_cleaning.py        Raw UCI to cleaned CSV
-│   ├── 02_eda_analysis.py         Exploratory data analysis
-│   └── 03_ml_models.py            Model training and evaluation
-└── docs/
-    └── CHD_Synopsis.pdf           Final synopsis submitted for QM640
-```
+- Institutions: Cleveland, Hungarian, Zurich, Basel, VA Long Beach (1981–1987)  
+- N = 918 unique records after deduplication  
+- 11 clinical features, binary CHD outcome (55.3% positive prevalence)  
+- No personally identifiable information; IRB exemption applies
+
+---
 
 ## How to Run
 
-Python 3.10 or later is recommended.
-
+### 1. Install dependencies (one-time)
 ```bash
-# 1. Clone the repo
-git clone https://github.com/mvinayabhushan/Capstone.git
-cd Capstone
-
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. Run scripts in order
-python scripts/01_data_cleaning.py
-python scripts/02_eda_analysis.py
-python scripts/03_ml_models.py
+pip install pandas numpy matplotlib seaborn scikit-learn scipy ucimlrepo
 ```
 
-## Documents
+### 2. Run the pipeline stages in order
+```bash
+python 01_data_cleaning.py
+python 02_eda_analysis.py
+python 03_ml_models.py
+```
 
-The full capstone synopsis, including methodology, sample size calculations, analytic approach, and recommendations, is in `docs/CHD_Synopsis.pdf`.
+> **Note:** `heart_disease_cleaned.csv` is included in the repo. If you want to regenerate it from scratch, `01_data_cleaning.py` downloads the raw data from the UCI repository automatically.
 
-## Licence
+### Requirements
+- Python 3.11+
+- CPU only — no GPU required
 
-Code in this repository is released under the MIT Licence (see `LICENSE`). The underlying UCI dataset is distributed under CC BY 4.0 and its own terms apply to the data itself.
+---
+
+## Research Questions
+
+| RQ | Question | Method |
+|----|----------|--------|
+| RQ1 | Which clinical features are most associated with CHD and what are their effect sizes? | Random Forest feature importance + Welch's t-test with Cohen's d |
+| RQ2 | Which of six classifiers performs best for non-invasive CHD screening? | Stratified 5-fold cross-validation (recall primary, AUC secondary) |
+| RQ3 | Are there statistically significant differences in continuous clinical indicators between CHD-positive and CHD-negative groups? | Welch's two-sample t-test |
+| RQ4 | Does the best model perform equitably across gender subgroups? | Subgroup recall comparison + decision threshold tuning |
+
+---
+
+## License
+
+This project is released under the **MIT License** and is governed by Walsh College academic integrity policies. The UCI Heart Disease Dataset is freely redistributable for educational and research purposes.
+
+---
+
+## Citation
+
+Janosi, A., Steinbrunn, W., Pfisterer, M., & Detrano, R. (1989). Heart disease [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C52P4X
+
+Dua, D., & Graff, C. (2019). UCI machine learning repository. University of California, Irvine. https://archive.ics.uci.edu/ml/
