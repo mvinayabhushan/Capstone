@@ -65,7 +65,7 @@ models = {
     'Decision Tree':       DecisionTreeClassifier(max_depth=5, random_state=42),
     'Random Forest':       RandomForestClassifier(n_estimators=100, random_state=42),
     'Gradient Boosting':   GradientBoostingClassifier(n_estimators=100, random_state=42),
-    'SVM':                 SVC(probability=True, random_state=42),
+    'SVM': SVC(kernel='rbf', C=0.5, gamma='scale', probability=True, random_state=42),
     'KNN':                 KNeighborsClassifier(n_neighbors=7),
 }
 
